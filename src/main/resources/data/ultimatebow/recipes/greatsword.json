@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " N ",
+    " N ",
+    " S "
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:netherite_sword"
+    },
+    "S": {
+      "item": "minecraft:soul_sand"
+    }
+  },
+  "result": {
+    "item": "ultimatebow:greatsword"
+  }
+}

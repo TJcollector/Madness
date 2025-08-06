@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " BR",
+    "BNR",
+    " BR"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "R": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "item": "ultimatebow:ultimate_bow"
+  }
+}
