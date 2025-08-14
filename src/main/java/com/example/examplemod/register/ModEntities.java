@@ -25,6 +25,7 @@
 package com.example.examplemod.register;
 
 import com.example.examplemod.UltimateBow;
+import com.example.examplemod.entity.BroodMother;
 import com.example.examplemod.entity.CustomSnowman;
 import com.example.examplemod.entity.ShadowSteve;
 import net.minecraft.world.entity.EntityType;
@@ -53,13 +54,28 @@ public class ModEntities {
                             .sized(0.6f, 1.95f)
                             .clientTrackingRange(10)
                             .build("shadow_steve"));
+
+    public static final RegistryObject<EntityType<BroodMother>> BROOD_MOTHER =
+            ENTITIES.register("broodmother", () ->
+                    EntityType.Builder.of(BroodMother::new, MobCategory.MONSTER)
+                            .sized(4.0f, 2.5f) // bigger than normal spider (default is about 1.4x0.9)
+                            .clientTrackingRange(10)
+                            .build("broodmother"));
+
+    // Call this method from your mod setup class to register attributes
+//    @SubscribeEvent
+//    public static void registerAttributes(EntityAttributeCreationEvent event) {
+//        event.put(BROOD_MOTHER.get(), BroodMother.createAttributes().build());
+//    }
+
 //    @Mod.EventBusSubscriber(modid = UltimateBow.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-    // ✅ Static inner class for registering attributes
+//     //✅ Static inner class for registering attributes
 //    public static class ModEntityAttributes {
 //        @SubscribeEvent
 //        public static void onRegisterAttributes(EntityAttributeCreationEvent event) {
 //            event.put(ModEntities.CUSTOM_SNOWMAN.get(), CustomSnowman.createAttributes().build());
 //            event.put(ModEntities.SHADOW_STEVE.get(), ShadowSteve.createAttributes().build());
+//            event.put(BROOD_MOTHER.get(), BroodMother.createAttributes().build());
 //        }
 //    }
 

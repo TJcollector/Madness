@@ -1,6 +1,7 @@
 package com.example.examplemod.register;
 
 import com.example.examplemod.UltimateBow;
+import com.example.examplemod.entity.BroodMother;
 import com.example.examplemod.entity.CustomSnowman;
 import com.example.examplemod.entity.ShadowSteve;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -14,5 +15,6 @@ public class ModEntityAttributes {
     public static void onRegisterAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.CUSTOM_SNOWMAN.get(), CustomSnowman.createAttributes().build());
         event.put(ModEntities.SHADOW_STEVE.get(), ShadowSteve.createAttributes().build());
+        event.put(ModEntities.BROOD_MOTHER.get(), BroodMother.createAttributes().build());
     }
 }

@@ -1,0 +1,24 @@
+# Blender MTL File: 'None'
+# Material Count: 2
+
+newmtl item_objectcomponents_weapon_sword_2h_frostmourne_d_02_m2_G_000
+Ns 0.000000
+Ka 0.250000 0.250000 0.250000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd ultimatebow:item/frostmourne_sword_2h_frostmourne_arthas2
+
+newmtl item_objectcomponents_weapon_sword_2h_frostmourne_d_02_m2_Geose
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd ultimatebow:item/frostmourne_sword_2h_frostmourne_arthas2

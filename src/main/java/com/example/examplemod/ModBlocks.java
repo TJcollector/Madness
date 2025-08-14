@@ -3,7 +3,6 @@ package com.example.examplemod;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -23,8 +22,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> PHOTO_BLOCK = BLOCKS.register("java_block",
             () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(1.0f)
-                    .noOcclusion()));
+                    .strength(3.0F, 3.0F)
+                    .requiresCorrectToolForDrops()
+            ));
 
     public static final RegistryObject<Item> PHOTO_BLOCK_ITEM = ITEMS.register("java_block",
             () -> new BlockItem(PHOTO_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_MISC)));

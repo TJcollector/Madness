@@ -1,6 +1,7 @@
 package com.example.examplemod.client.renderer;
 
 import com.example.examplemod.entity.ShadowSteve;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.model.PlayerModel;
@@ -19,6 +20,12 @@ public class ShadowSteveRenderer extends MobRenderer<ShadowSteve, PlayerModel<Sh
     @Override
     public ResourceLocation getTextureLocation(ShadowSteve entity) {
         return SHADOW_STEVE_TEXTURE;
+    }
+    @Override
+    protected void scale(ShadowSteve entity, PoseStack poseStack, float partialTickTime) {
+        float scale = 1.5f;  // Change this value to increase or decrease size visually
+        poseStack.scale(scale, scale, scale);
+        super.scale(entity, poseStack, partialTickTime);
     }
 }
 //package com.example.examplemod.client.renderer;

@@ -1,23 +1,25 @@
 package com.example.examplemod;
 import com.example.examplemod.command.SpawnShadowSteveCommand;
 import com.example.examplemod.effect.ModEffects;
+import com.example.examplemod.entity.BroodMother;
 import com.example.examplemod.entity.CustomSnowman;
 import com.example.examplemod.entity.ShadowSteve;
 import com.example.examplemod.entity.SnowGolemMinionHandler;
 //import com.example.examplemod.entity.UndeadMinion;
 import com.example.examplemod.event.CurseEvents;
-import com.example.examplemod.item.GreatSwordItem;
-import com.example.examplemod.item.LichKingSwordItem;
-import com.example.examplemod.item.UltimateBowItem;
+import com.example.examplemod.item.*;
 //import com.example.examplemod.register.ModItems;
 import com.example.examplemod.register.ModEntityAttributes;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.MinecraftForge;
@@ -40,7 +42,7 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
+import net.minecraftforge.common.ForgeMod;
 
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -74,6 +76,7 @@ public class UltimateBow
         MinecraftForge.EVENT_BUS.register(CurseEvents.class);
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModEffects.register(modEventBus);
+        //ModEntities.BROOD_MOTHER.register(modEventBus);
         //ModItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         // Register entity types (like CustomSnowman, ShadowSteve)
         //ModEntities.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -81,6 +84,10 @@ public class UltimateBow
         // Register attribute creation listener
 //        FMLJavaModLoadingContext.get().getModEventBus()
 //                .addListener(ModEntities.ModEntityAttributes::onRegisterAttributes);
+//        ModEntities.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+//
+//        // Register entity attributes
+//        FMLJavaModLoadingContext.get().getModEventBus().addListener(ModEntities.ModEntityAttributes::onRegisterAttributes);
 
 
         ModBlocks.register();
@@ -96,6 +103,7 @@ public class UltimateBow
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+
 
 
     }
@@ -148,10 +156,15 @@ public class UltimateBow
 //            registry.register(LICH_KING_SWORD_ITEM);
 
             registry.register(new LichKingSwordItem()
-                    .setRegistryName(new ResourceLocation("ultimatebow", "lkb")));
+                    .setRegistryName(new ResourceLocation("ultimatebow", "frostmourne")));
             //load the great sword
             registry.register(new GreatSwordItem()
                     .setRegistryName(new ResourceLocation("ultimatebow", "greatsword")));
+
+            registry.register(new BonePickaxe()
+                    .setRegistryName( new ResourceLocation("ultimatebow", "bonepickaxe")));
+            registry.register(new BoneAxe()
+                    .setRegistryName( new ResourceLocation("ultimatebow", "boneaxe")));
 
             //load picture
             registry.register(new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC))
@@ -176,24 +189,65 @@ public class UltimateBow
 //                    0xadd8e6, 0xffffff,
 //                    new Item.Properties().tab(CreativeModeTab.TAB_MISC))
 //                    .setRegistryName(new ResourceLocation("ultimatebow", "snowmanegg")));
-            registry.register(new ForgeSpawnEggItem(
-                    ModEntities.SHADOW_STEVE, // Make sure this is your EntityType<ShadowSteve>
-                    0x000000, // Primary color (black)
-                    0x5500aa, // Secondary color (purple)
-                    new Item.Properties().tab(CreativeModeTab.TAB_MISC)
-            ).setRegistryName(new ResourceLocation("ultimatebow", "sspe")));
+//            registry.register(new ForgeSpawnEggItem(
+//                    ModEntities.SHADOW_STEVE, // Make sure this is your EntityType<ShadowSteve>
+//                    0x000000, // Primary color (black)
+//                    0x5500aa, // Secondary color (purple)
+//                    new Item.Properties().tab(CreativeModeTab.TAB_MISC)
+//            ).setRegistryName(new ResourceLocation("ultimatebow", "sspe")));
+
+            registry.register(new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)) {
+                @Override
+                public InteractionResult useOn(UseOnContext context) {
+                    Level level = context.getLevel();
+                    if (!level.isClientSide) {
+                        ShadowSteve entity = ModEntities.SHADOW_STEVE.get().create(level);
+                        if (entity != null) {
+                            entity.moveTo(context.getClickedPos().above(), 0.0F, 0.0F);
+                            level.addFreshEntity(entity);
+                        }
+                    }
+                    return InteractionResult.sidedSuccess(level.isClientSide);
+                }
+            }.setRegistryName(new ResourceLocation("ultimatebow", "sspe")));
+
             registry.register(new ForgeSpawnEggItem(
                     ModEntities.CUSTOM_SNOWMAN, // Make sure this is your EntityType<ShadowSteve>
                     0x000000, // Primary color (black)
                     0x5500aa, // Secondary color (purple)
                     new Item.Properties().tab(CreativeModeTab.TAB_MISC)
             ).setRegistryName(new ResourceLocation("ultimatebow", "snowmanegg")));
+//            registry.register(new ForgeSpawnEggItem(
+//                    ModEntities.BROOD_MOTHER, // Make sure this is your EntityType<ShadowSteve>
+//                    0x000000, // Primary color (black)
+//                    0x5500aa, // Secondary color (purple)
+//                    new Item.Properties().tab(CreativeModeTab.TAB_MISC)
+//            ).setRegistryName(new ResourceLocation("ultimatebow", "broodmother")));
+            registry.register(new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)) {
+                @Override
+                public InteractionResult useOn(UseOnContext context) {
+                    Level level = context.getLevel();
+                    if (!level.isClientSide) {
+                        BroodMother entity = ModEntities.BROOD_MOTHER.get().create(level);
+                        if (entity != null) {
+                            entity.moveTo(context.getClickedPos().above(), 0.0F, 0.0F);
+                            level.addFreshEntity(entity);
+                        }
+                    }
+                    return InteractionResult.sidedSuccess(level.isClientSide);
+                }
+            }.setRegistryName(new ResourceLocation("ultimatebow", "broodmother")));
+
+
 
 
 
 
 
             LOGGER.info("Registered Ultimate Bow item");
+//            registry.register(new Item(new Item.Properties().tab(CreativeModeTab.TAB_COMBAT))
+//                    .setRegistryName(new ResourceLocation("ultimatebow", "frostmourne")));
+
         }
         //for java block
 //        public class ModBlocks {

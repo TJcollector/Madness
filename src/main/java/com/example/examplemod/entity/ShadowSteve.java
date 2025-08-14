@@ -298,6 +298,13 @@ public class ShadowSteve extends Monster {
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+
+
+        // Wander around when idle
+        this.goalSelector.addGoal(5, new net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal(this, 1.0D));
+
+        // Look around randomly
+        this.goalSelector.addGoal(6, new net.minecraft.world.entity.ai.goal.RandomLookAroundGoal(this));
     }
 
     @Override
@@ -314,34 +321,42 @@ public class ShadowSteve extends Monster {
     @Override
     protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHit) {
         //this.spawnAtLocation(ForgeRegistries.ITEMS.getValue(new ResourceLocation("ultimatebow", "greatsword")));
-        this.spawnAtLocation(ForgeRegistries.ITEMS.getValue(new ResourceLocation("ultimatebow", "sspe")));
+        //this.spawnAtLocation(ForgeRegistries.ITEMS.getValue(new ResourceLocation("ultimatebow", "sspe")));
         // Bonus loot
-        this.spawnAtLocation(new ItemStack(Items.NETHERITE_INGOT, 3));
-        this.spawnAtLocation(new ItemStack(Items.ENCHANTED_GOLDEN_APPLE, 2));
-        this.spawnAtLocation(new ItemStack(Items.DIAMOND, 5));
-        this.spawnAtLocation(new ItemStack(Items.EXPERIENCE_BOTTLE, 16));
+//        this.spawnAtLocation(new ItemStack(Items.NETHERITE_INGOT, 3));
+//        this.spawnAtLocation(new ItemStack(Items.ENCHANTED_GOLDEN_APPLE, 2));
+//        this.spawnAtLocation(new ItemStack(Items.DIAMOND, 5));
+//        this.spawnAtLocation(new ItemStack(Items.EXPERIENCE_BOTTLE, 16));
+        this.spawnAtLocation(new ItemStack(Items.NETHER_STAR));
 
         // Rare armor piece
         ItemStack helm = new ItemStack(Items.NETHERITE_HELMET);
         ItemStack chest = new ItemStack(Items.NETHERITE_CHESTPLATE);
         ItemStack leg = new ItemStack(Items.NETHERITE_LEGGINGS);
         ItemStack boots = new ItemStack(Items.NETHERITE_BOOTS);
+        ItemStack pick = new ItemStack(Items.NETHERITE_PICKAXE);
         helm.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
-        helm.enchant(Enchantments.UNBREAKING, 3);
+        helm.enchant(Enchantments.UNBREAKING, 5);
         helm.setHoverName(new TextComponent("§6Void Helm"));
         chest.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
-        chest.enchant(Enchantments.UNBREAKING, 3);
+        chest.enchant(Enchantments.UNBREAKING, 5);
         chest.setHoverName(new TextComponent("§6Void Chest plate"));
         leg.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
-        leg.enchant(Enchantments.UNBREAKING, 3);
+        leg.enchant(Enchantments.UNBREAKING, 5);
         leg.setHoverName(new TextComponent("§6Void Leggings"));
         boots.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
-        boots.enchant(Enchantments.UNBREAKING, 3);
+        boots.enchant(Enchantments.UNBREAKING, 5);
         boots.setHoverName(new TextComponent("§6Void Boots"));
+        pick.enchant(Enchantments.BLOCK_EFFICIENCY,15);
+        pick.enchant(Enchantments.UNBREAKING, 5);
+        pick.enchant(Enchantments.BLOCK_FORTUNE, 5);
+        pick.setHoverName(new TextComponent("§6Void Pickaxe"));
         this.spawnAtLocation(helm);
         this.spawnAtLocation(chest);
         this.spawnAtLocation(leg);
         this.spawnAtLocation(boots);
+        this.spawnAtLocation(pick);
+
     }
 
     @Override
@@ -358,7 +373,7 @@ public class ShadowSteve extends Monster {
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 250.0D)
-                .add(Attributes.ATTACK_DAMAGE, 6.5D)
+                .add(Attributes.ATTACK_DAMAGE, 3.5D)
                 .add(Attributes.MOVEMENT_SPEED, 0.4D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }

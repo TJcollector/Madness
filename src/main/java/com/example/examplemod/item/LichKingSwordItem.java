@@ -935,16 +935,17 @@ import java.util.UUID;
 public class LichKingSwordItem extends SwordItem {
 
     public LichKingSwordItem() {
-        super(Tiers.NETHERITE, 10, -2.4F, new Item.Properties().durability(2048).tab(CreativeModeTab.TAB_COMBAT));
+        super(Tiers.NETHERITE, 25, -2.4F, new Item.Properties().durability(1200).tab(CreativeModeTab.TAB_COMBAT));
         MinecraftForge.EVENT_BUS.register(this); // Register the damage handler event listener
     }
 
     @Override
     public void onCraftedBy(ItemStack stack, Level level, Player player) {
         stack.enchant(Enchantments.SHARPNESS, 10);
-        stack.enchant(Enchantments.UNBREAKING, 5);
+        stack.enchant(Enchantments.UNBREAKING, 3);
         stack.enchant(Enchantments.MOB_LOOTING, 5);
-        stack.enchant(Enchantments.MENDING, 1);
+        stack.enchant(Enchantments.FIRE_ASPECT, 2);
+//        stack.enchant(Enchantments.MENDING, 1);
     }
 
     @Override
@@ -961,33 +962,37 @@ public class LichKingSwordItem extends SwordItem {
                 }
             });
             // Apply buffs
-            player.addEffect(new MobEffectInstance(MobEffects.SATURATION, 10, 4, true, false));
+            //player.addEffect(new MobEffectInstance(MobEffects.SATURATION, 10, 4, true, false));
             player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 220, 0, true, false));
-            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 10, 3, true, false));
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 10, 4, true, false));
+            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 3, true, false));
+            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 2, true, false));
+
+            if (player.getHealth() < player.getMaxHealth()) {
+                player.heal(0.25F); // heals half a heart every tick while holding
+            }
 
             // Change weather to storm/thunder
             if (!level.isClientSide && level instanceof ServerLevel serverLevel && !serverLevel.isThundering()) {
                 serverLevel.setWeatherParameters(0, 6000, true, true);
             }
 
-            // Freeze water under player
-            BlockPos belowPos = pos.below();
-            BlockState below = level.getBlockState(pos.below());
-            FluidState fluid = below.getFluidState();
-            if (fluid.is(Fluids.WATER) && fluid.isSource()) {
-                level.setBlockAndUpdate(belowPos, Blocks.ICE.defaultBlockState());
-
-                // ❄️ Particle effect: Snowflake burst
-                if (level instanceof ServerLevel serverLevel) {
-                    serverLevel.sendParticles(ParticleTypes.SNOWFLAKE,
-                            belowPos.getX() + 0.5, belowPos.getY() + 1.0, belowPos.getZ() + 0.5,
-                            10, 0.3, 0.3, 0.3, 0.01);
-                }
-
-                // 🔊 Sound effect: Ice forming
-                level.playSound(null, belowPos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 0.5F, 1.2F);
-            }
+//            // Freeze water under player
+//            BlockPos belowPos = pos.below();
+//            BlockState below = level.getBlockState(pos.below());
+//            FluidState fluid = below.getFluidState();
+//            if (fluid.is(Fluids.WATER) && fluid.isSource()) {
+//                level.setBlockAndUpdate(belowPos, Blocks.ICE.defaultBlockState());
+//
+//                // ❄️ Particle effect: Snowflake burst
+//                if (level instanceof ServerLevel serverLevel) {
+//                    serverLevel.sendParticles(ParticleTypes.SNOWFLAKE,
+//                            belowPos.getX() + 0.5, belowPos.getY() + 1.0, belowPos.getZ() + 0.5,
+//                            10, 0.3, 0.3, 0.3, 0.01);
+//                }
+//
+//                // 🔊 Sound effect: Ice forming
+//                level.playSound(null, belowPos, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 0.5F, 1.2F);
+//            }
 
             // Remove undead minions after 30 seconds (600 ticks)
             level.getEntitiesOfClass(SnowGolem.class, player.getBoundingBox().inflate(32)).forEach(minion -> {
@@ -1004,23 +1009,23 @@ public class LichKingSwordItem extends SwordItem {
                 serverLevel.setWeatherParameters(6000, 0, false, false);
             }
 
-            // Unfreeze ice
-            BlockPos belowPos = pos.below();
-            BlockState below = level.getBlockState(belowPos);
-
-            if (below.is(Blocks.ICE)) {
-                level.setBlockAndUpdate(belowPos, Blocks.WATER.defaultBlockState());
-
-                // 💧 Particle effect: Splash burst
-                if (level instanceof ServerLevel serverLevel) {
-                    serverLevel.sendParticles(ParticleTypes.SPLASH,
-                            belowPos.getX() + 0.5, belowPos.getY() + 1.0, belowPos.getZ() + 0.5,
-                            10, 0.3, 0.3, 0.3, 0.05);
-                }
-
-                // 🔊 Sound effect: Water splash
-                level.playSound(null, belowPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.5F, 1.0F);
-            }
+//            // Unfreeze ice
+//            BlockPos belowPos = pos.below();
+//            BlockState below = level.getBlockState(belowPos);
+//
+//            if (below.is(Blocks.ICE)) {
+//                level.setBlockAndUpdate(belowPos, Blocks.WATER.defaultBlockState());
+//
+//                // 💧 Particle effect: Splash burst
+//                if (level instanceof ServerLevel serverLevel) {
+//                    serverLevel.sendParticles(ParticleTypes.SPLASH,
+//                            belowPos.getX() + 0.5, belowPos.getY() + 1.0, belowPos.getZ() + 0.5,
+//                            10, 0.3, 0.3, 0.3, 0.05);
+//                }
+//
+//                // 🔊 Sound effect: Water splash
+//                level.playSound(null, belowPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.5F, 1.0F);
+//            }
 
         }
     }

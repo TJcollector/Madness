@@ -10,6 +10,8 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import com.example.examplemod.client.renderer.ShadowSteveRenderer;
+import com.example.examplemod.client.renderer.BroodMotherRenderer;
+import net.minecraft.client.model.SpiderModel;
 @Mod.EventBusSubscriber(modid = "ultimatebow", value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientModEvents {
 
@@ -22,6 +24,7 @@ public class ClientModEvents {
 
             // Register Shadow Steve renderer, using vanilla MobRenderer (Steve model)
             event.registerEntityRenderer(ModEntities.SHADOW_STEVE.get(), ShadowSteveRenderer::new);
+            event.registerEntityRenderer(ModEntities.BROOD_MOTHER.get(), BroodMotherRenderer::new);
         }
     }
 

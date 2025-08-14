@@ -64,8 +64,12 @@ public class GreatSwordItem extends SwordItem {
             });
             // Apply buffs
             player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 220, 0, true, false));
-            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 10, 1, true, false));
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 10, 1, true, false));
+            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 10, 0, true, false));
+            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 1, true, false));
+//
+//            if (player.getHealth() < player.getMaxHealth()) {
+//                player.heal(0.01F); // heals half a heart every tick while holding
+//            }
 
             // Change weather to storm/thunder
 

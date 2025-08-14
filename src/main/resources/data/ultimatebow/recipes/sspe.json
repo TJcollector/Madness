@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SAP",
+    "OJO",
+    "LLL"
+  ],
+  "key": {
+    "S": {"item": "minecraft:diamond_sword"},
+    "A": {"item": "minecraft:diamond_axe"},
+    "P": {"item": "minecraft:diamond_pickaxe"},
+    "O": {"item": "minecraft:obsidian"},
+    "J": {"item": "ultimatebow:java_block"},
+    "L": {"item": "minecraft:lava_bucket"}
+  },
+  "result": {"item": "ultimatebow:sspe"}
+}
