@@ -256,7 +256,9 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;;import java.util.List;
 //import org.jetbrains.annotations.Nullable;
 
-
+/*
+* changing monster to zombie line 262 267 390
+* */
 public class ShadowSteve extends Monster {
 
     private final ServerBossEvent bossBar = new ServerBossEvent(
@@ -265,7 +267,22 @@ public class ShadowSteve extends Monster {
     public ShadowSteve(EntityType<? extends Monster> type, Level level) {
         super(type, level);
         this.setPersistenceRequired();
+        if (!level.isClientSide) {
+            // Weapon
+            this.setItemSlot(EquipmentSlot.MAINHAND,
+                    new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("ultimatebow", "frostmourne"))));
+            this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
 
+            // Armor
+            this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
+            this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
+            this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
+            this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
+            this.setDropChance(EquipmentSlot.HEAD, 0F);
+            this.setDropChance(EquipmentSlot.CHEST, 0F);
+            this.setDropChance(EquipmentSlot.LEGS, 0F);
+            this.setDropChance(EquipmentSlot.FEET, 0F);
+        }
     }
 
     private boolean hasAnnouncedSpawn = false;
@@ -277,13 +294,13 @@ public class ShadowSteve extends Monster {
             announceToNearbyPlayers("§5Shadow Frost Steve has emerged from the void...");
         }
         bossBar.setProgress(this.getHealth() / this.getMaxHealth());
-        if (!level.isClientSide) {
-            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("ultimatebow", "lkb"))));
-            this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
-            this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
-            this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
-            this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
-        }
+//        if (!level.isClientSide) {
+//            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("ultimatebow", "lkb"))));
+//            this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
+//            this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
+//            this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
+//            this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
+//        }
         if (!level.isClientSide && tickCount % 200 == 0) { // summon a zombie every 10 seconds
             Zombie zombie = EntityType.ZOMBIE.create(level);
             if (zombie != null) {
@@ -292,6 +309,65 @@ public class ShadowSteve extends Monster {
             }
         }
     }
+
+    @Override
+    protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
+        super.populateDefaultEquipmentSlots(difficulty);
+
+        // Give weapon
+        this.setItemSlot(EquipmentSlot.MAINHAND,
+                new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("ultimatebow", "frostmourne"))));
+        this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
+
+        // Give full Netherite armor
+        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
+        this.setDropChance(EquipmentSlot.HEAD, 0.0F);
+
+        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
+        this.setDropChance(EquipmentSlot.CHEST, 0.0F);
+
+        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
+        this.setDropChance(EquipmentSlot.LEGS, 0.0F);
+
+        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
+        this.setDropChance(EquipmentSlot.FEET, 0.0F);
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(
+            net.minecraft.world.level.ServerLevelAccessor level,
+            net.minecraft.world.DifficultyInstance difficulty,
+            net.minecraft.world.entity.MobSpawnType reason,
+            @org.jetbrains.annotations.Nullable net.minecraft.world.entity.SpawnGroupData spawnData,
+            @org.jetbrains.annotations.Nullable net.minecraft.nbt.CompoundTag dataTag) {
+
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+
+        // Only set once, server-side
+        if (this.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.MAINHAND).isEmpty()) {
+            this.setItemSlot(net.minecraft.world.entity.EquipmentSlot.MAINHAND,
+                    new net.minecraft.world.item.ItemStack(
+                            net.minecraftforge.registries.ForgeRegistries.ITEMS
+                                    .getValue(new net.minecraft.resources.ResourceLocation("ultimatebow", "frostmourne"))
+                    ));
+            this.setDropChance(net.minecraft.world.entity.EquipmentSlot.MAINHAND, 0.0F);
+
+            this.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD,  new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.NETHERITE_HELMET));
+            this.setDropChance(net.minecraft.world.entity.EquipmentSlot.HEAD, 0.0F);
+
+            this.setItemSlot(net.minecraft.world.entity.EquipmentSlot.CHEST, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.NETHERITE_CHESTPLATE));
+            this.setDropChance(net.minecraft.world.entity.EquipmentSlot.CHEST, 0.0F);
+
+            this.setItemSlot(net.minecraft.world.entity.EquipmentSlot.LEGS,  new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.NETHERITE_LEGGINGS));
+            this.setDropChance(net.minecraft.world.entity.EquipmentSlot.LEGS, 0.0F);
+
+            this.setItemSlot(net.minecraft.world.entity.EquipmentSlot.FEET,  new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.NETHERITE_BOOTS));
+            this.setDropChance(net.minecraft.world.entity.EquipmentSlot.FEET, 0.0F);
+        }
+
+        return data;
+    }
+
 
     @Override
     protected void registerGoals() {
@@ -307,16 +383,7 @@ public class ShadowSteve extends Monster {
         this.goalSelector.addGoal(6, new net.minecraft.world.entity.ai.goal.RandomLookAroundGoal(this));
     }
 
-    @Override
-    protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-        this.setItemSlot(EquipmentSlot.MAINHAND,
-                new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("ultimatebow", "lkb"))));
 
-        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
-        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
-        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
-        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
-    }
 
     @Override
     protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHit) {
@@ -372,8 +439,8 @@ public class ShadowSteve extends Monster {
     }
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 250.0D)
-                .add(Attributes.ATTACK_DAMAGE, 3.5D)
+                .add(Attributes.MAX_HEALTH, 500.0D)
+                .add(Attributes.ATTACK_DAMAGE, 8.5D)
                 .add(Attributes.MOVEMENT_SPEED, 0.4D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }

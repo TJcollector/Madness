@@ -1,12 +1,14 @@
 package com.example.examplemod;
 import com.example.examplemod.command.SpawnShadowSteveCommand;
 import com.example.examplemod.effect.ModEffects;
+import com.example.examplemod.effect.ShadowCursedEffect;
 import com.example.examplemod.entity.BroodMother;
 import com.example.examplemod.entity.CustomSnowman;
 import com.example.examplemod.entity.ShadowSteve;
 import com.example.examplemod.entity.SnowGolemMinionHandler;
 //import com.example.examplemod.entity.UndeadMinion;
 import com.example.examplemod.event.CurseEvents;
+import com.example.examplemod.event.ShadowCurseLoginHandler;
 import com.example.examplemod.item.*;
 //import com.example.examplemod.register.ModItems;
 import com.example.examplemod.register.ModEntityAttributes;
@@ -30,6 +32,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
@@ -52,6 +55,7 @@ import java.util.stream.Collectors;
 @Mod("ultimatebow")
 public class UltimateBow
 {
+    public static final String MODID = "ultimatebow";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
 
@@ -64,6 +68,7 @@ public class UltimateBow
         // Register the processIMC method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
+        MinecraftForge.EVENT_BUS.register(ShadowCurseLoginHandler.class);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         ModEntities.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -75,7 +80,9 @@ public class UltimateBow
         //apply curse
         MinecraftForge.EVENT_BUS.register(CurseEvents.class);
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modEventBus.addListener(this::onClientSetup);
         ModEffects.register(modEventBus);
+//        ModEntities.ENTITIES.register(modEventBus);
         //ModEntities.BROOD_MOTHER.register(modEventBus);
         //ModItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         // Register entity types (like CustomSnowman, ShadowSteve)
@@ -91,9 +98,18 @@ public class UltimateBow
 
 
         ModBlocks.register();
+        // In UltimateBow.java constructor
+        MinecraftForge.EVENT_BUS.addListener(this::onServerStarting);
+
+        //com.example.examplemod.util.SocketMessenger.startServer();
 
     }
-//
+    private void onClientSetup(final FMLClientSetupEvent event) {
+        com.example.examplemod.util.SocketMessenger.startServer();
+    }
+
+
+    //
 //    @SubscribeEvent
 //    public void onRegisterCommands(RegisterCommandsEvent event) {
 //        SpawnShadowSteveCommand.register(event.getDispatcher());
@@ -123,12 +139,17 @@ public class UltimateBow
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event)
-    {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
+//    @SubscribeEvent
+//    public void onServerStarting(ServerStartingEvent event)
+//    {
+//        // Do something when the server starts
+//        LOGGER.info("HELLO from server starting");
+//    }
+    private void onServerStarting(final net.minecraftforge.event.server.ServerStartingEvent event) {
+        System.out.println("[UltimateBow] ServerStarting event fired!");
+        com.example.examplemod.util.SocketMessenger.startServer();
     }
+
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
@@ -264,7 +285,7 @@ public class UltimateBow
 //            blockRegistryEvent.getRegistry().register(ModBlocks.PHOTO_BLOCK.get().setRegistryName(new ResourceLocation("ultimatebow", "java_block")));
 //        }
     }
-    public static final String MODID = "ultimatebow";
+
 //    @Mod.EventBusSubscriber(modid = UltimateBow.MODID)
 //    public class GlobalEvents {
 //
