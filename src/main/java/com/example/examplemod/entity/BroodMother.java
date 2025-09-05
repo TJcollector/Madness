@@ -48,8 +48,8 @@ public class BroodMother extends Spider {
     // Optional: Override attributes if you want it tougher / faster
     public static AttributeSupplier.Builder createAttributes() {
         return Spider.createAttributes()
-                .add(Attributes.MAX_HEALTH, 100.0D)  // custom health
-                .add(Attributes.ATTACK_DAMAGE, 4.5D)
+                .add(Attributes.MAX_HEALTH, 350.0D)  // custom health
+                .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D);
     }
     private boolean hasAnnouncedSpawn = false;

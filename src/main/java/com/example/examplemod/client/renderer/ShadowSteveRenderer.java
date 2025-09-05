@@ -42,7 +42,6 @@
 //}
 
 package com.example.examplemod.client.renderer;
-
 import com.example.examplemod.entity.ShadowSteve;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HumanoidModel;
@@ -59,7 +58,7 @@ public class ShadowSteveRenderer extends MobRenderer<ShadowSteve, HumanoidModel<
             new ResourceLocation("ultimatebow", "textures/entity/shadowsteve.png");
 
     public ShadowSteveRenderer(EntityRendererProvider.Context context) {
-        super(context, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER)), 0.5F);
+        super(context, new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER)), 0.8F);
 
         // ✅ Armor layer
         this.addLayer(new HumanoidArmorLayer<>(

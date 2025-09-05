@@ -437,10 +437,11 @@ public class ShadowSteve extends Monster {
         super.stopSeenByPlayer(player);
         bossBar.removePlayer(player);
     }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 500.0D)
-                .add(Attributes.ATTACK_DAMAGE, 8.5D)
+                .add(Attributes.ATTACK_DAMAGE, 5.0D)// dealing 30 damage baseline since hes holding frostmourne
                 .add(Attributes.MOVEMENT_SPEED, 0.4D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }

@@ -14,7 +14,7 @@ public class BroodMotherRenderer extends MobRenderer<BroodMother, SpiderModel<Br
             new ResourceLocation("ultimatebow", "textures/entity/brood_mother.png");
 
     public BroodMotherRenderer(EntityRendererProvider.Context context) {
-        super(context, new SpiderModel<>(context.bakeLayer(ModelLayers.SPIDER)), 0.8f); // Adjust shadow size if needed
+        super(context, new SpiderModel<>(context.bakeLayer(ModelLayers.SPIDER)), 4.0f); // Adjust shadow size if needed
     }
 
     @Override
@@ -24,7 +24,7 @@ public class BroodMotherRenderer extends MobRenderer<BroodMother, SpiderModel<Br
 
     @Override
     protected void scale(BroodMother entity, PoseStack poseStack, float partialTickTime) {
-        float scale = 4f;  // Make her big and scary!
+        float scale = 10f;  // Make her big and scary!
         poseStack.scale(scale, scale, scale);
         super.scale(entity, poseStack, partialTickTime);
     }
