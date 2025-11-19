@@ -1,212 +1,3 @@
-//package com.example.examplemod.entity;
-//
-//import com.example.examplemod.UltimateBow;
-//import net.minecraft.network.chat.TextComponent;
-//import net.minecraft.server.level.ServerBossEvent;
-//import net.minecraft.server.level.ServerLevel;
-//import net.minecraft.server.level.ServerPlayer;
-//import net.minecraft.world.BossEvent.BossBarColor;
-//import net.minecraft.world.BossEvent.BossBarOverlay;
-//import net.minecraft.world.Difficulty;
-//import net.minecraft.world.DifficultyInstance;
-//import net.minecraft.world.damagesource.DamageSource;
-//import net.minecraft.world.entity.*;
-//import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-//import net.minecraft.world.entity.ai.attributes.Attributes;
-//import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-//import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-//import net.minecraft.world.entity.monster.Monster;
-//import net.minecraft.world.entity.monster.Zombie;
-//import net.minecraft.world.entity.player.Player;
-//import net.minecraft.world.item.ItemStack;
-//import net.minecraft.world.item.Items;
-//import net.minecraft.world.level.Level;
-//
-//public class ShadowSteve extends Monster {
-//
-//    private final ServerBossEvent bossBar = new ServerBossEvent(
-//            new TextComponent("SHADOW STEVE"), BossBarColor.PURPLE, BossBarOverlay.PROGRESS);
-//
-//    public ShadowSteve(EntityType<? extends Monster> type, Level level) {
-//        super(type, level);
-//        this.setPersistenceRequired();
-//    }
-//
-//    @Override
-//    public void tick() {
-//        super.tick();
-//
-//        // Update boss bar progress
-//        bossBar.setProgress(this.getHealth() / this.getMaxHealth());
-//
-//        if (!level.isClientSide && tickCount % 200 == 0) { // every 10 seconds
-//            Zombie zombie = EntityType.ZOMBIE.create(level);
-//            if (zombie != null) {
-//                zombie.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-//                level.addFreshEntity(zombie);
-//            }
-//        }
-//    }
-//
-//    @Override
-//    protected void registerGoals() {
-//        super.registerGoals();
-//        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false));
-//        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
-//    }
-//
-//    @Override
-//    protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-//        // Use manually registered items from UltimateBow.java
-//        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(UltimateBow.RegistryEvents.LICH_KING_SWORD_ITEM));
-//
-//        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
-//        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
-//        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
-//        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
-//    }
-//
-//    @Override
-//    protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHit) {
-//        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(UltimateBow.RegistryEvents.LICH_KING_SWORD_ITEM));
-//
-//    }
-//
-//    @Override
-//    public void startSeenByPlayer(ServerPlayer player) {
-//        super.startSeenByPlayer(player);
-//        bossBar.addPlayer(player);
-//    }
-//
-//    @Override
-//    public void stopSeenByPlayer(ServerPlayer player) {
-//        super.stopSeenByPlayer(player);
-//        bossBar.removePlayer(player);
-//    }
-//
-//    public static AttributeSupplier.Builder createAttributes() {
-//        return Monster.createMonsterAttributes()
-//                .add(Attributes.MAX_HEALTH, 500.0D)
-//                .add(Attributes.ATTACK_DAMAGE, 5.0D)
-//                .add(Attributes.MOVEMENT_SPEED, 0.25D)
-//                .add(Attributes.FOLLOW_RANGE, 32.0D);
-//    }
-//}
-
-//package com.example.examplemod.entity;
-//
-//import com.example.examplemod.UltimateBow;
-//import net.minecraft.nbt.CompoundTag;
-//import net.minecraft.network.chat.TextComponent;
-//import net.minecraft.resources.ResourceLocation;
-//import net.minecraft.server.level.ServerBossEvent;
-//import net.minecraft.server.level.ServerLevel;
-//import net.minecraft.server.level.ServerPlayer;
-//import net.minecraft.world.BossEvent.BossBarColor;
-//import net.minecraft.world.BossEvent.BossBarOverlay;
-//import net.minecraft.world.Difficulty;
-//import net.minecraft.world.DifficultyInstance;
-//import net.minecraft.world.damagesource.DamageSource;
-//import net.minecraft.world.entity.*;
-//import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-//import net.minecraft.world.entity.ai.attributes.Attributes;
-//import net.minecraft.world.entity.ai.goal.*;
-//import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-//import net.minecraft.world.entity.monster.Monster;
-//import net.minecraft.world.entity.monster.Zombie;
-//import net.minecraft.world.entity.player.Player;
-//import net.minecraft.world.item.ItemStack;
-//import net.minecraft.world.item.Items;
-//import net.minecraft.world.level.Level;
-//
-//public class ShadowSteve extends Monster {
-//
-//    private final ServerBossEvent bossBar = new ServerBossEvent(
-//            new TextComponent("SHADOW STEVE"), BossBarColor.PURPLE, BossBarOverlay.PROGRESS);
-//
-//    public ShadowSteve(EntityType<? extends Monster> type, Level level) {
-//        super(type, level);
-//        this.setPersistenceRequired();
-//        this.setAggressive(true); // Important: make AI behave aggressively
-//    }
-//
-//    @Override
-//    protected void registerGoals() {
-//        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2D, false));
-//        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0D));
-//        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
-//        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-//        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
-//    }
-//
-//    @Override
-//    public void tick() {
-//        super.tick();
-//
-//        if (!level.isClientSide && tickCount % 200 == 0) {
-//            Zombie zombie = EntityType.ZOMBIE.create(level);
-//            if (zombie != null) {
-//                zombie.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-//                level.addFreshEntity(zombie);
-//            }
-//        }
-//
-//        bossBar.setProgress(this.getHealth() / this.getMaxHealth());
-//    }
-//
-//    // Called during mob spawn (natural or command)
-//
-//    public SpawnGroupData finalizeSpawn(ServerLevel level, DifficultyInstance difficulty, MobSpawnType reason,
-//                                        SpawnGroupData spawnData, CompoundTag tag) {
-//        SpawnGroupData data = super.finalizeSpawn(level, difficulty, reason, spawnData, tag);
-//        this.populateDefaultEquipmentSlots(difficulty);
-//        this.setPersistenceRequired();
-//        return data;
-//    }
-//
-//
-//    @Override
-//    protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-//          this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(UltimateBow.RegistryEvents.LICH_KING_SWORD_ITEM));
-////        this.setItemSlot(EquipmentSlot.MAINHAND,
-////                new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation("ultimatebow", "lkb"))));
-//
-//        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
-//        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
-//        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
-//        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
-//    }
-//
-//    @Override
-//    protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHit) {
-//        for (EquipmentSlot slot : EquipmentSlot.values()) {
-//            ItemStack stack = this.getItemBySlot(slot);
-//            if (!stack.isEmpty()) {
-//                this.spawnAtLocation(stack.copy());
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public void startSeenByPlayer(ServerPlayer player) {
-//        super.startSeenByPlayer(player);
-//        bossBar.addPlayer(player);
-//    }
-//
-//    @Override
-//    public void stopSeenByPlayer(ServerPlayer player) {
-//        super.stopSeenByPlayer(player);
-//        bossBar.removePlayer(player);
-//    }
-//
-//    public static AttributeSupplier.Builder createAttributes() {
-//        return Monster.createMonsterAttributes()
-//                .add(Attributes.MAX_HEALTH, 500.0D)
-//                .add(Attributes.ATTACK_DAMAGE, 5.0D)
-//                .add(Attributes.MOVEMENT_SPEED, 0.25D)
-//                .add(Attributes.FOLLOW_RANGE, 32.0D);
-//    }
-//}
 package com.example.examplemod.entity;
 
 import com.example.examplemod.UltimateBow;
@@ -256,7 +47,9 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;;import java.util.List;
 //import org.jetbrains.annotations.Nullable;
 
-
+/*
+* changing monster to zombie line 262 267 390
+* */
 public class ShadowSteve extends Monster {
 
     private final ServerBossEvent bossBar = new ServerBossEvent(
@@ -265,7 +58,22 @@ public class ShadowSteve extends Monster {
     public ShadowSteve(EntityType<? extends Monster> type, Level level) {
         super(type, level);
         this.setPersistenceRequired();
+        if (!level.isClientSide) {
+            // Weapon
+            this.setItemSlot(EquipmentSlot.MAINHAND,
+                    new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("ultimatebow", "frostmourne"))));
+            this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
 
+            // Armor
+            this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
+            this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
+            this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
+            this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
+            this.setDropChance(EquipmentSlot.HEAD, 0F);
+            this.setDropChance(EquipmentSlot.CHEST, 0F);
+            this.setDropChance(EquipmentSlot.LEGS, 0F);
+            this.setDropChance(EquipmentSlot.FEET, 0F);
+        }
     }
 
     private boolean hasAnnouncedSpawn = false;
@@ -277,13 +85,13 @@ public class ShadowSteve extends Monster {
             announceToNearbyPlayers("§5Shadow Frost Steve has emerged from the void...");
         }
         bossBar.setProgress(this.getHealth() / this.getMaxHealth());
-        if (!level.isClientSide) {
-            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("ultimatebow", "lkb"))));
-            this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
-            this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
-            this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
-            this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
-        }
+//        if (!level.isClientSide) {
+//            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("ultimatebow", "lkb"))));
+//            this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
+//            this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
+//            this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
+//            this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
+//        }
         if (!level.isClientSide && tickCount % 200 == 0) { // summon a zombie every 10 seconds
             Zombie zombie = EntityType.ZOMBIE.create(level);
             if (zombie != null) {
@@ -292,6 +100,65 @@ public class ShadowSteve extends Monster {
             }
         }
     }
+
+    @Override
+    protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
+        super.populateDefaultEquipmentSlots(difficulty);
+
+        // Give weapon
+        this.setItemSlot(EquipmentSlot.MAINHAND,
+                new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("ultimatebow", "frostmourne"))));
+        this.setDropChance(EquipmentSlot.MAINHAND, 0.0F);
+
+        // Give full Netherite armor
+        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
+        this.setDropChance(EquipmentSlot.HEAD, 0.0F);
+
+        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
+        this.setDropChance(EquipmentSlot.CHEST, 0.0F);
+
+        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
+        this.setDropChance(EquipmentSlot.LEGS, 0.0F);
+
+        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
+        this.setDropChance(EquipmentSlot.FEET, 0.0F);
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(
+            net.minecraft.world.level.ServerLevelAccessor level,
+            net.minecraft.world.DifficultyInstance difficulty,
+            net.minecraft.world.entity.MobSpawnType reason,
+            @org.jetbrains.annotations.Nullable net.minecraft.world.entity.SpawnGroupData spawnData,
+            @org.jetbrains.annotations.Nullable net.minecraft.nbt.CompoundTag dataTag) {
+
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+
+        // Only set once, server-side
+        if (this.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.MAINHAND).isEmpty()) {
+            this.setItemSlot(net.minecraft.world.entity.EquipmentSlot.MAINHAND,
+                    new net.minecraft.world.item.ItemStack(
+                            net.minecraftforge.registries.ForgeRegistries.ITEMS
+                                    .getValue(new net.minecraft.resources.ResourceLocation("ultimatebow", "frostmourne"))
+                    ));
+            this.setDropChance(net.minecraft.world.entity.EquipmentSlot.MAINHAND, 0.0F);
+
+            this.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD,  new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.NETHERITE_HELMET));
+            this.setDropChance(net.minecraft.world.entity.EquipmentSlot.HEAD, 0.0F);
+
+            this.setItemSlot(net.minecraft.world.entity.EquipmentSlot.CHEST, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.NETHERITE_CHESTPLATE));
+            this.setDropChance(net.minecraft.world.entity.EquipmentSlot.CHEST, 0.0F);
+
+            this.setItemSlot(net.minecraft.world.entity.EquipmentSlot.LEGS,  new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.NETHERITE_LEGGINGS));
+            this.setDropChance(net.minecraft.world.entity.EquipmentSlot.LEGS, 0.0F);
+
+            this.setItemSlot(net.minecraft.world.entity.EquipmentSlot.FEET,  new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.NETHERITE_BOOTS));
+            this.setDropChance(net.minecraft.world.entity.EquipmentSlot.FEET, 0.0F);
+        }
+
+        return data;
+    }
+
 
     @Override
     protected void registerGoals() {
@@ -307,16 +174,7 @@ public class ShadowSteve extends Monster {
         this.goalSelector.addGoal(6, new net.minecraft.world.entity.ai.goal.RandomLookAroundGoal(this));
     }
 
-    @Override
-    protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-        this.setItemSlot(EquipmentSlot.MAINHAND,
-                new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("ultimatebow", "lkb"))));
 
-        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
-        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
-        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
-        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
-    }
 
     @Override
     protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHit) {
@@ -370,10 +228,11 @@ public class ShadowSteve extends Monster {
         super.stopSeenByPlayer(player);
         bossBar.removePlayer(player);
     }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 250.0D)
-                .add(Attributes.ATTACK_DAMAGE, 3.5D)
+                .add(Attributes.MAX_HEALTH, 500.0D)
+                .add(Attributes.ATTACK_DAMAGE, 5.0D)// dealing 30 damage baseline since hes holding frostmourne
                 .add(Attributes.MOVEMENT_SPEED, 0.4D)
                 .add(Attributes.FOLLOW_RANGE, 32.0D);
     }

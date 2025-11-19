@@ -66,26 +66,6 @@ public class GreatSwordItem extends SwordItem {
             player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 220, 0, true, false));
             player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 10, 0, true, false));
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 1, true, false));
-//
-//            if (player.getHealth() < player.getMaxHealth()) {
-//                player.heal(0.01F); // heals half a heart every tick while holding
-//            }
-
-            // Change weather to storm/thunder
-
-
-            // Freeze water under player
-
-
-            // Remove undead minions after 30 seconds (600 ticks)
-//            level.getEntitiesOfClass(Zombie.class, player.getBoundingBox().inflate(32)).forEach(zombie -> {
-//                if (zombie.getCustomName() != null && "Undead Minion".equals(zombie.getCustomName().getString())) {
-//                    if (zombie.tickCount > 600) {
-//                        zombie.remove(net.minecraft.world.entity.Entity.RemovalReason.DISCARDED);
-//                    }
-//                }
-//            });
-
         }
 
             // Unfreeze ice
