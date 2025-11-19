@@ -348,7 +348,7 @@ public class LichKingSwordItem extends SwordItem {
         int souls = stack.getOrCreateTag().getInt("SoulCount");
         tooltip.add(new TextComponent("§bSouls Collected: §f" + souls));
 
-        if (souls < 5) tooltip.add(new TextComponent("§7A blade waiting for its first few victim..."));
+        if (souls < 5) tooltip.add(new TextComponent("§7A blade waiting for its first few victims..."));
         else if (souls < 10) tooltip.add(new TextComponent("§7The blade tastes blood for the first time (5+ souls)"));
         else if (souls < 15) tooltip.add(new TextComponent("§7The blade hungers for more... (10+ souls)"));
         else if (souls < 20) tooltip.add(new TextComponent("§7The Lich King’s will strengthens (15+ souls)"));
@@ -359,7 +359,8 @@ public class LichKingSwordItem extends SwordItem {
         else if (souls < 45) tooltip.add(new TextComponent("§bThe blade hungers for devastation (40+ souls)"));
         else if (souls < 50) tooltip.add(new TextComponent("§bThe Lich King’s power grows... (45+ souls)"));
         else if (souls < 100) tooltip.add(new TextComponent("§aThe blade hums with overwhelming power (50+ souls)"));
-        else tooltip.add(new TextComponent("§cThe Lich King’s wrath is unleashed (100+ souls)"));
+        else if (souls >= 100 && souls<200) tooltip.add(new TextComponent("§cThe Lich King’s wrath is unleashed (100+ souls)"));
+        else if (souls >= 200) tooltip.add(new TextComponent("§cThe blade has reached its full potential! (200+ souls)"));
     }
 
     @Override
