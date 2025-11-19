@@ -1,27 +1,4 @@
-//package com.example.examplemod.register;
-//
-//import com.example.examplemod.UltimateBow;
-//import com.example.examplemod.entity.UndeadMinion;
-//import net.minecraft.world.entity.EntityType;
-//import net.minecraft.world.entity.MobCategory;
-//import net.minecraftforge.registries.DeferredRegister;
-//import net.minecraftforge.registries.ForgeRegistries;
-//import net.minecraftforge.registries.RegistryObject;
-//
-//public class ModEntities {
-//    // Create DeferredRegister for EntityTypes using ForgeRegistries.ENTITY_TYPES and modid
-//    public static final DeferredRegister<EntityType<?>> ENTITIES =
-//            DeferredRegister.create(ForgeRegistries.ENTITIES, UltimateBow.MODID);
-//
-//    // Register UndeadMinion entity type
-//    public static final RegistryObject<EntityType<UndeadMinion>> UNDEAD_MINION =
-//            ENTITIES.register("undead_minion", () ->
-//                    EntityType.Builder.<UndeadMinion>of(UndeadMinion::new, MobCategory.MONSTER)
-//                            .sized(0.6f, 1.95f)
-//                            .clientTrackingRange(10)
-//                            .build("undead_minion"));
-//
-//}
+
 package com.example.examplemod.register;
 
 import com.example.examplemod.UltimateBow;
@@ -62,21 +39,6 @@ public class ModEntities {
                             .clientTrackingRange(10)
                             .build("broodmother"));
 
-    // Call this method from your mod setup class to register attributes
-//    @SubscribeEvent
-//    public static void registerAttributes(EntityAttributeCreationEvent event) {
-//        event.put(BROOD_MOTHER.get(), BroodMother.createAttributes().build());
-//    }
-
-//    @Mod.EventBusSubscriber(modid = UltimateBow.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-//     //✅ Static inner class for registering attributes
-//    public static class ModEntityAttributes {
-//        @SubscribeEvent
-//        public static void onRegisterAttributes(EntityAttributeCreationEvent event) {
-//            event.put(ModEntities.CUSTOM_SNOWMAN.get(), CustomSnowman.createAttributes().build());
-//            event.put(ModEntities.SHADOW_STEVE.get(), ShadowSteve.createAttributes().build());
-//            event.put(BROOD_MOTHER.get(), BroodMother.createAttributes().build());
-//        }
-//    }
+  
 
 }
