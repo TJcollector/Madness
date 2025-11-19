@@ -156,12 +156,7 @@ public class UltimateBow
                     .setRegistryName(new ResourceLocation("ultimatebow", "godzilla")));
             registry.register(new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC))
                     .setRegistryName(new ResourceLocation("ultimatebow", "javapic")));
-            registry.register(new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC))
-                    .setRegistryName(new ResourceLocation("ultimatebow", "thejava")));
-            registry.register(new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC))
-                    .setRegistryName(new ResourceLocation("ultimatebow", "kua")));
-            registry.register(new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC))
-                    .setRegistryName(new ResourceLocation("ultimatebow", "milin")));
+            
             registry.register(new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)) {
                 @Override
                 public InteractionResult useOn(UseOnContext context) {
