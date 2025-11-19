@@ -82,6 +82,7 @@ public class BroodMother extends Spider {
 
         // Look around randomly
         this.goalSelector.addGoal(6, new net.minecraft.world.entity.ai.goal.RandomLookAroundGoal(this));
+
     }
 
 
@@ -94,36 +95,6 @@ public class BroodMother extends Spider {
         this.spawnAtLocation(new ItemStack(Items.NETHERITE_INGOT, 3));
         this.spawnAtLocation(new ItemStack(Items.ENCHANTED_GOLDEN_APPLE, 2));
         this.spawnAtLocation(new ItemStack(Items.DIAMOND, 5));
-//        this.spawnAtLocation(new ItemStack(Items.EXPERIENCE_BOTTLE, 16));
-        //this.spawnAtLocation(new ItemStack(Items.NETHER_STAR));
-
-        // Rare armor piece
-//        ItemStack helm = new ItemStack(Items.NETHERITE_HELMET);
-//        ItemStack chest = new ItemStack(Items.NETHERITE_CHESTPLATE);
-//        ItemStack leg = new ItemStack(Items.NETHERITE_LEGGINGS);
-//        ItemStack boots = new ItemStack(Items.NETHERITE_BOOTS);
-//        ItemStack pick = new ItemStack(Items.NETHERITE_PICKAXE);
-//        helm.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
-//        helm.enchant(Enchantments.UNBREAKING, 5);
-//        helm.setHoverName(new TextComponent("§6Void Helm"));
-//        chest.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
-//        chest.enchant(Enchantments.UNBREAKING, 5);
-//        chest.setHoverName(new TextComponent("§6Void Chest plate"));
-//        leg.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
-//        leg.enchant(Enchantments.UNBREAKING, 5);
-//        leg.setHoverName(new TextComponent("§6Void Leggings"));
-//        boots.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
-//        boots.enchant(Enchantments.UNBREAKING, 5);
-//        boots.setHoverName(new TextComponent("§6Void Boots"));
-//        pick.enchant(Enchantments.BLOCK_EFFICIENCY,10);
-//        pick.enchant(Enchantments.UNBREAKING, 5);
-//        pick.enchant(Enchantments.BLOCK_FORTUNE, 5);
-//        pick.setHoverName(new TextComponent("§6Void Pickaxe"));
-//        this.spawnAtLocation(helm);
-//        this.spawnAtLocation(chest);
-//        this.spawnAtLocation(leg);
-//        this.spawnAtLocation(boots);
-//        this.spawnAtLocation(pick);
 
     }
 
