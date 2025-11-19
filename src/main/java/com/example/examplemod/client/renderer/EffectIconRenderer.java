@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.Mod;
 public class EffectIconRenderer {
 
     private static final ResourceLocation SHADOW_CURSE_ICON =
-            new ResourceLocation(UltimateBow.MODID, "textures/mob_effect/shadow_curse.png");
+            new ResourceLocation(UltimateBow.MODID, "textures/mob_effect/shadow_curse1.png");
 
     @SubscribeEvent
     public static void onRenderOverlay(RenderGameOverlayEvent.Post event) {
