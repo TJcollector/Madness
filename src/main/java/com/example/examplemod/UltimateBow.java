@@ -150,8 +150,6 @@ public class UltimateBow
 
             //load picture
             registry.register(new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC))
-                    .setRegistryName(new ResourceLocation("ultimatebow", "godzilla")));
-            registry.register(new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC))
                     .setRegistryName(new ResourceLocation("ultimatebow", "javapic")));
             
             registry.register(new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)) {

@@ -44,6 +44,9 @@ public class SocketMessenger {
                                         ChatType.SYSTEM,
                                         Util.NIL_UUID
                                 );
+//                                server.getPlayerList().broadcastAll(
+//                                        Component.literal("§c[Admin] §f" + finalLine)
+//                                );
                             } else {
                                 System.out.println("[SocketMessenger] Singleplayer server not ready yet.");
                             }
