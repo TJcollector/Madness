@@ -1,5 +1,6 @@
 package com.example.examplemod.entity;
 
+import com.example.examplemod.effect.ModEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -28,8 +29,10 @@ public class SnowGolemMinionHandler {
                 target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 1));
                 target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60, 1));
                 //target.addEffect(new MobEffectInstance(ModEffects.SHADOW_CURSED.get(), 60, 1));
+                target.addEffect(new MobEffectInstance(ModEffects.SHADOW_CURSE.get(), 15, 15, false, true));
 
                 // Apply custom damage
+
                 target.hurt(DamageSource.thrown(snowball, snowball.getOwner()), 4.0F);
             }
         }
@@ -38,7 +41,7 @@ public class SnowGolemMinionHandler {
     public static void onSnowmanDamaged(LivingDamageEvent event) {
         if (event.getEntityLiving() instanceof SnowGolem) {
             DamageSource source = event.getSource();
-            if (source == DamageSource.DROWN || source == DamageSource.IN_FIRE || source == DamageSource.ON_FIRE || source.isExplosion()) {
+            if (source == DamageSource.DROWN || source == DamageSource.IN_FIRE || source == DamageSource.ON_FIRE) {
                 event.setCanceled(true);
             }
         }
