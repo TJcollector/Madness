@@ -44,3 +44,63 @@ Community Documentation: https://docs.minecraftforge.net/en/1.18.x/gettingstarte
 LexManos' Install Video: https://youtu.be/8VEdtQLuLO0
 Forge Forums: https://forums.minecraftforge.net/
 Forge Discord: https://discord.minecraftforge.net/
+
+
+
+Recipes:
+=========================
+As of now, we have 8 items that can be crafted:
+1. Blast Axe also known as Bone-Axe
+2. Bone-Pickaxe
+3. Great Sword
+4. FrostMourne
+5. Java_Block
+6. BroodMother Spawnegg
+7. Shadow Steve Spawnegg
+8. UltimateBow from orespawn mod from version 1.7.10 which is now compatible with 1.18.2
+
+Recipe: Bone-Axe
+__________________________________________________
+|              |                |                |
+| Blast_Furnace|   Iron_Axe     | Blast_Furnace  |
+|              |                |                |
+|______________|________________|________________|
+|              |                |                |
+|              |     Stick      |                |
+|              |                |                |
+|______________|________________|________________|
+|              |                |                |
+|              |     Stick      |                |
+|              |                |                |
+|______________|________________|________________|
+
+Recipe: Bone-Pickaxe
+__________________________________________________
+|              |                |                |
+|     Bone     |  Iron_Pickaxe  |      Bone      |
+|              |                |                |
+|______________|________________|________________|
+|              |                |                |
+|              |     Stick      |                |
+|              |                |                |
+|______________|________________|________________|
+|              |                |                |
+|              |     Stick      |                |
+|              |                |                |
+|______________|________________|________________|
+
+Recipe: greatsword
+__________________________________________________
+|              |                |                |
+|              |netherite_sword |                |
+|              |                |                |
+|______________|________________|________________|
+|              |                |                |
+|              |netherite_sword |                |
+|              |                |                |
+|______________|________________|________________|
+|              |                |                |
+|              |   Soul_sand    |                |
+|              |                |                |
+|______________|________________|________________|
+
